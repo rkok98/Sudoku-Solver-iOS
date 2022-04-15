@@ -56,8 +56,10 @@ public enum SudokuSolver {
 			Constraint(position: pos,
 			           values: freeAtPosition(sudoku: sudoku,
 			                                 row: pos.row,
-			                                 col: pos.column))
-		}
+											  col: pos.column))
+		}.sorted(by: {
+			$0.values.count < $1.values.count
+		})
 	}
 
 	public static func consistent(_ sudoku: Sudoku) -> Bool {
@@ -119,6 +121,6 @@ public enum SudokuSolver {
 		let sequenceSet = Set(sequence.compacted())
 		let nSet = Set(n)
 
-		return Array(nSet.symmetricDifference(sequenceSet))
+		return Array(nSet.symmetricDifference(sequenceSet)).sorted()
 	}
 }

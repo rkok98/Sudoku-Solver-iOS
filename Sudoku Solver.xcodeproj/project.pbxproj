@@ -20,35 +20,6 @@
 		993DE9F92804D4E5005CDD8C /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 993DE9F82804D4E5005CDD8C /* Algorithms */; };
 		993DE9FB2804DC37005CDD8C /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DE9FA2804DC37005CDD8C /* Position.swift */; };
 		993DE9FF280576EA005CDD8C /* SudokuSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DE9FE280576EA005CDD8C /* SudokuSolverTests.swift */; };
-		993DEA1F2805B482005CDD8C /* simple_10_open_spots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA012805B481005CDD8C /* simple_10_open_spots.txt */; };
-		993DEA212805B482005CDD8C /* 1_open_spots_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA032805B481005CDD8C /* 1_open_spots_9_grid.txt */; };
-		993DEA222805B482005CDD8C /* hard_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA042805B481005CDD8C /* hard_9_grid.txt */; };
-		993DEA232805B482005CDD8C /* empty_16_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA052805B481005CDD8C /* empty_16_grid.txt */; };
-		993DEA242805B482005CDD8C /* hard_sudoku_2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA062805B481005CDD8C /* hard_sudoku_2.txt */; };
-		993DEA252805B482005CDD8C /* sudoku_one_line.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA072805B481005CDD8C /* sudoku_one_line.txt */; };
-		993DEA262805B482005CDD8C /* wrong_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA082805B481005CDD8C /* wrong_9_grid.txt */; };
-		993DEA272805B482005CDD8C /* simple_1_open_spot.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA092805B482005CDD8C /* simple_1_open_spot.txt */; };
-		993DEA282805B482005CDD8C /* unsolvable_sudoku_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA0A2805B482005CDD8C /* unsolvable_sudoku_1.txt */; };
-		993DEA292805B482005CDD8C /* 20_open_spots_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA0B2805B482005CDD8C /* 20_open_spots_9_grid.txt */; };
-		993DEA2A2805B482005CDD8C /* empty_4_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA0C2805B482005CDD8C /* empty_4_grid.txt */; };
-		993DEA2B2805B482005CDD8C /* 15_open_spots_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA0D2805B482005CDD8C /* 15_open_spots_9_grid.txt */; };
-		993DEA2C2805B482005CDD8C /* 4_sol_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA0E2805B482005CDD8C /* 4_sol_9_grid.txt */; };
-		993DEA2D2805B482005CDD8C /* sudoku_big_numbers.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA0F2805B482005CDD8C /* sudoku_big_numbers.txt */; };
-		993DEA2E2805B482005CDD8C /* simple_4_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA102805B482005CDD8C /* simple_4_grid.txt */; };
-		993DEA2F2805B483005CDD8C /* sudoku_5_by_4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA112805B482005CDD8C /* sudoku_5_by_4.txt */; };
-		993DEA302805B483005CDD8C /* hard_sudoku_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA122805B482005CDD8C /* hard_sudoku_1.txt */; };
-		993DEA312805B483005CDD8C /* complete_sudoku.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA132805B482005CDD8C /* complete_sudoku.txt */; };
-		993DEA322805B483005CDD8C /* 16_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA142805B482005CDD8C /* 16_grid.txt */; };
-		993DEA332805B483005CDD8C /* simple_5_open_spots.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA152805B482005CDD8C /* simple_5_open_spots.txt */; };
-		993DEA342805B483005CDD8C /* 2_sol_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA162805B482005CDD8C /* 2_sol_9_grid.txt */; };
-		993DEA352805B483005CDD8C /* empty_sudoku.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA172805B482005CDD8C /* empty_sudoku.txt */; };
-		993DEA362805B483005CDD8C /* 10_open_spots_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA182805B482005CDD8C /* 10_open_spots_9_grid.txt */; };
-		993DEA372805B483005CDD8C /* 5_open_spots_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA192805B482005CDD8C /* 5_open_spots_9_grid.txt */; };
-		993DEA382805B483005CDD8C /* 21_open_spots_9_grid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA1A2805B482005CDD8C /* 21_open_spots_9_grid.txt */; };
-		993DEA392805B483005CDD8C /* sudoku_string.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA1B2805B482005CDD8C /* sudoku_string.txt */; };
-		993DEA3A2805B483005CDD8C /* sudoku_empty.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA1C2805B482005CDD8C /* sudoku_empty.txt */; };
-		993DEA3B2805B483005CDD8C /* unsolvable_sudoku_2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA1D2805B482005CDD8C /* unsolvable_sudoku_2.txt */; };
-		993DEA3C2805B483005CDD8C /* unsolvable_sudoku_3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 993DEA1E2805B482005CDD8C /* unsolvable_sudoku_3.txt */; };
 		993DEA3E2805B7C1005CDD8C /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DEA3D2805B7C1005CDD8C /* Resources.swift */; };
 		993DEA442805CC7B005CDD8C /* SudokuInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DEA432805CC7B005CDD8C /* SudokuInputView.swift */; };
 		993DEA462805CCDE005CDD8C /* SudokuInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DEA452805CCDE005CDD8C /* SudokuInputViewController.swift */; };
@@ -89,35 +60,6 @@
 		993DE9F52804CC23005CDD8C /* SudokuSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuSolver.swift; sourceTree = "<group>"; };
 		993DE9FA2804DC37005CDD8C /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		993DE9FE280576EA005CDD8C /* SudokuSolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuSolverTests.swift; sourceTree = "<group>"; };
-		993DEA012805B481005CDD8C /* simple_10_open_spots.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simple_10_open_spots.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/simple_10_open_spots.txt"; sourceTree = "<group>"; };
-		993DEA032805B481005CDD8C /* 1_open_spots_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 1_open_spots_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/1_open_spots_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA042805B481005CDD8C /* hard_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hard_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/hard_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA052805B481005CDD8C /* empty_16_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = empty_16_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/empty_16_grid.txt"; sourceTree = "<group>"; };
-		993DEA062805B481005CDD8C /* hard_sudoku_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hard_sudoku_2.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/hard_sudoku_2.txt"; sourceTree = "<group>"; };
-		993DEA072805B481005CDD8C /* sudoku_one_line.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudoku_one_line.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/sudoku_one_line.txt"; sourceTree = "<group>"; };
-		993DEA082805B481005CDD8C /* wrong_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = wrong_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/wrong_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA092805B482005CDD8C /* simple_1_open_spot.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simple_1_open_spot.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/simple_1_open_spot.txt"; sourceTree = "<group>"; };
-		993DEA0A2805B482005CDD8C /* unsolvable_sudoku_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unsolvable_sudoku_1.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/unsolvable_sudoku_1.txt"; sourceTree = "<group>"; };
-		993DEA0B2805B482005CDD8C /* 20_open_spots_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 20_open_spots_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/20_open_spots_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA0C2805B482005CDD8C /* empty_4_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = empty_4_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/empty_4_grid.txt"; sourceTree = "<group>"; };
-		993DEA0D2805B482005CDD8C /* 15_open_spots_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 15_open_spots_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/15_open_spots_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA0E2805B482005CDD8C /* 4_sol_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 4_sol_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/4_sol_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA0F2805B482005CDD8C /* sudoku_big_numbers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudoku_big_numbers.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/sudoku_big_numbers.txt"; sourceTree = "<group>"; };
-		993DEA102805B482005CDD8C /* simple_4_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simple_4_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/simple_4_grid.txt"; sourceTree = "<group>"; };
-		993DEA112805B482005CDD8C /* sudoku_5_by_4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudoku_5_by_4.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/sudoku_5_by_4.txt"; sourceTree = "<group>"; };
-		993DEA122805B482005CDD8C /* hard_sudoku_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hard_sudoku_1.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/hard_sudoku_1.txt"; sourceTree = "<group>"; };
-		993DEA132805B482005CDD8C /* complete_sudoku.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = complete_sudoku.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/complete_sudoku.txt"; sourceTree = "<group>"; };
-		993DEA142805B482005CDD8C /* 16_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 16_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/16_grid.txt"; sourceTree = "<group>"; };
-		993DEA152805B482005CDD8C /* simple_5_open_spots.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simple_5_open_spots.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/simple_5_open_spots.txt"; sourceTree = "<group>"; };
-		993DEA162805B482005CDD8C /* 2_sol_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 2_sol_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/2_sol_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA172805B482005CDD8C /* empty_sudoku.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = empty_sudoku.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/empty_sudoku.txt"; sourceTree = "<group>"; };
-		993DEA182805B482005CDD8C /* 10_open_spots_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 10_open_spots_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/10_open_spots_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA192805B482005CDD8C /* 5_open_spots_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 5_open_spots_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/5_open_spots_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA1A2805B482005CDD8C /* 21_open_spots_9_grid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = 21_open_spots_9_grid.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/21_open_spots_9_grid.txt"; sourceTree = "<group>"; };
-		993DEA1B2805B482005CDD8C /* sudoku_string.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudoku_string.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/sudoku_string.txt"; sourceTree = "<group>"; };
-		993DEA1C2805B482005CDD8C /* sudoku_empty.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sudoku_empty.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/sudoku_empty.txt"; sourceTree = "<group>"; };
-		993DEA1D2805B482005CDD8C /* unsolvable_sudoku_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unsolvable_sudoku_2.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/unsolvable_sudoku_2.txt"; sourceTree = "<group>"; };
-		993DEA1E2805B482005CDD8C /* unsolvable_sudoku_3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unsolvable_sudoku_3.txt; path = "../../../../../Downloads/Programming-Languages-UvA-main/Assignment 4 - Python/sudoku/sudoku_boards/unsolvable_sudoku_3.txt"; sourceTree = "<group>"; };
 		993DEA3D2805B7C1005CDD8C /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		993DEA432805CC7B005CDD8C /* SudokuInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuInputView.swift; sourceTree = "<group>"; };
 		993DEA452805CCDE005CDD8C /* SudokuInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuInputViewController.swift; sourceTree = "<group>"; };
@@ -242,35 +184,6 @@
 		993DEA002805B456005CDD8C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				993DEA032805B481005CDD8C /* 1_open_spots_9_grid.txt */,
-				993DEA162805B482005CDD8C /* 2_sol_9_grid.txt */,
-				993DEA0E2805B482005CDD8C /* 4_sol_9_grid.txt */,
-				993DEA192805B482005CDD8C /* 5_open_spots_9_grid.txt */,
-				993DEA182805B482005CDD8C /* 10_open_spots_9_grid.txt */,
-				993DEA0D2805B482005CDD8C /* 15_open_spots_9_grid.txt */,
-				993DEA142805B482005CDD8C /* 16_grid.txt */,
-				993DEA0B2805B482005CDD8C /* 20_open_spots_9_grid.txt */,
-				993DEA1A2805B482005CDD8C /* 21_open_spots_9_grid.txt */,
-				993DEA132805B482005CDD8C /* complete_sudoku.txt */,
-				993DEA0C2805B482005CDD8C /* empty_4_grid.txt */,
-				993DEA052805B481005CDD8C /* empty_16_grid.txt */,
-				993DEA172805B482005CDD8C /* empty_sudoku.txt */,
-				993DEA042805B481005CDD8C /* hard_9_grid.txt */,
-				993DEA122805B482005CDD8C /* hard_sudoku_1.txt */,
-				993DEA062805B481005CDD8C /* hard_sudoku_2.txt */,
-				993DEA092805B482005CDD8C /* simple_1_open_spot.txt */,
-				993DEA102805B482005CDD8C /* simple_4_grid.txt */,
-				993DEA152805B482005CDD8C /* simple_5_open_spots.txt */,
-				993DEA012805B481005CDD8C /* simple_10_open_spots.txt */,
-				993DEA112805B482005CDD8C /* sudoku_5_by_4.txt */,
-				993DEA0F2805B482005CDD8C /* sudoku_big_numbers.txt */,
-				993DEA1C2805B482005CDD8C /* sudoku_empty.txt */,
-				993DEA072805B481005CDD8C /* sudoku_one_line.txt */,
-				993DEA1B2805B482005CDD8C /* sudoku_string.txt */,
-				993DEA0A2805B482005CDD8C /* unsolvable_sudoku_1.txt */,
-				993DEA1D2805B482005CDD8C /* unsolvable_sudoku_2.txt */,
-				993DEA1E2805B482005CDD8C /* unsolvable_sudoku_3.txt */,
-				993DEA082805B481005CDD8C /* wrong_9_grid.txt */,
 				993DEA3D2805B7C1005CDD8C /* Resources.swift */,
 			);
 			path = Resources;
@@ -405,35 +318,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				993DEA3C2805B483005CDD8C /* unsolvable_sudoku_3.txt in Resources */,
-				993DEA262805B482005CDD8C /* wrong_9_grid.txt in Resources */,
-				993DEA2E2805B482005CDD8C /* simple_4_grid.txt in Resources */,
-				993DEA2A2805B482005CDD8C /* empty_4_grid.txt in Resources */,
-				993DEA2D2805B482005CDD8C /* sudoku_big_numbers.txt in Resources */,
-				993DEA2F2805B483005CDD8C /* sudoku_5_by_4.txt in Resources */,
-				993DEA362805B483005CDD8C /* 10_open_spots_9_grid.txt in Resources */,
-				993DEA332805B483005CDD8C /* simple_5_open_spots.txt in Resources */,
-				993DEA252805B482005CDD8C /* sudoku_one_line.txt in Resources */,
-				993DEA392805B483005CDD8C /* sudoku_string.txt in Resources */,
-				993DEA2B2805B482005CDD8C /* 15_open_spots_9_grid.txt in Resources */,
-				993DEA282805B482005CDD8C /* unsolvable_sudoku_1.txt in Resources */,
-				993DEA212805B482005CDD8C /* 1_open_spots_9_grid.txt in Resources */,
-				993DEA292805B482005CDD8C /* 20_open_spots_9_grid.txt in Resources */,
-				993DEA242805B482005CDD8C /* hard_sudoku_2.txt in Resources */,
-				993DEA272805B482005CDD8C /* simple_1_open_spot.txt in Resources */,
-				993DEA222805B482005CDD8C /* hard_9_grid.txt in Resources */,
-				993DEA342805B483005CDD8C /* 2_sol_9_grid.txt in Resources */,
-				993DEA2C2805B482005CDD8C /* 4_sol_9_grid.txt in Resources */,
-				993DEA312805B483005CDD8C /* complete_sudoku.txt in Resources */,
-				993DEA1F2805B482005CDD8C /* simple_10_open_spots.txt in Resources */,
-				993DEA232805B482005CDD8C /* empty_16_grid.txt in Resources */,
-				993DEA322805B483005CDD8C /* 16_grid.txt in Resources */,
-				993DEA3B2805B483005CDD8C /* unsolvable_sudoku_2.txt in Resources */,
-				993DEA302805B483005CDD8C /* hard_sudoku_1.txt in Resources */,
-				993DEA3A2805B483005CDD8C /* sudoku_empty.txt in Resources */,
-				993DEA382805B483005CDD8C /* 21_open_spots_9_grid.txt in Resources */,
-				993DEA372805B483005CDD8C /* 5_open_spots_9_grid.txt in Resources */,
-				993DEA352805B483005CDD8C /* empty_sudoku.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
