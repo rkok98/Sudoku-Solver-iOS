@@ -1,13 +1,18 @@
 import Foundation
+import SwiftUI
 
-public class SudokuInputViewController {
-	public func temp() -> [SubGrid] {
+public class SudokuInputViewController: ObservableObject {
+	public func random() -> [SubGrid] {
 		let str = sudokus.randomElement()!
 		return Sudoku.parse(str).getSubGrids()
 	}
 
 	public func show(_ sudoku: Sudoku) -> [SubGrid] {
 		return sudoku.getSubGrids()
+	}
+
+	public func clear(nrOfSubGrids: Int) -> [SubGrid] {
+		return Array(repeating: Array(repeating: nil, count: nrOfSubGrids), count: nrOfSubGrids)
 	}
 
 	public func parseSudoku(_ values: [SubGrid]) -> Sudoku {

@@ -44,80 +44,61 @@ struct SudokuCellView: View {
 struct SudokuSubGrid: View {
 	let id: Int
 
-	@Binding var values: [Int?]
+	@Binding var subGrid: SubGrid
 	@FocusState var focusedField: String?
 
 	private let spacing: CGFloat = 0
 
 	var body: some View {
-		VStack(spacing: self.spacing) {
-			HStack(spacing: self.spacing) {
-				SudokuCellView(grid: self.id, cell: 0, value: $values[0], focusedField: _focusedField)
-				SudokuCellView(grid: self.id, cell: 1, value: $values[1], focusedField: _focusedField)
-				SudokuCellView(grid: self.id, cell: 2, value: $values[2], focusedField: _focusedField)
+		VStack(spacing: spacing) {
+			HStack(spacing: spacing) {
+				SudokuCellView(grid: id, cell: 0, value: $subGrid[0], focusedField: _focusedField)
+				SudokuCellView(grid: id, cell: 1, value: $subGrid[1], focusedField: _focusedField)
+				SudokuCellView(grid: id, cell: 2, value: $subGrid[2], focusedField: _focusedField)
 			}
-			HStack(spacing: self.spacing) {
-				SudokuCellView(grid: self.id, cell: 3, value: $values[3], focusedField: _focusedField)
-				SudokuCellView(grid: self.id, cell: 4, value: $values[4], focusedField: _focusedField)
-				SudokuCellView(grid: self.id, cell: 5, value: $values[5], focusedField: _focusedField)
+			HStack(spacing: spacing) {
+				SudokuCellView(grid: id, cell: 3, value: $subGrid[3], focusedField: _focusedField)
+				SudokuCellView(grid: id, cell: 4, value: $subGrid[4], focusedField: _focusedField)
+				SudokuCellView(grid: id, cell: 5, value: $subGrid[5], focusedField: _focusedField)
 			}
-			HStack(spacing: self.spacing) {
-				SudokuCellView(grid: self.id, cell: 6, value: $values[6], focusedField: _focusedField)
-				SudokuCellView(grid: self.id, cell: 7, value: $values[7], focusedField: _focusedField)
-				SudokuCellView(grid: self.id, cell: 8, value: $values[8], focusedField: _focusedField)
+			HStack(spacing: spacing) {
+				SudokuCellView(grid: id, cell: 6, value: $subGrid[6], focusedField: _focusedField)
+				SudokuCellView(grid: id, cell: 7, value: $subGrid[7], focusedField: _focusedField)
+				SudokuCellView(grid: id, cell: 8, value: $subGrid[8], focusedField: _focusedField)
 			}
-		}.background(Rectangle().strokeBorder(Color.primary, lineWidth: 2))
+		}.background(Rectangle()
+			.strokeBorder(Color.primary, lineWidth: 2))
 	}
 }
 
 struct SudokuView: View {
+	private let controller = SudokuInputViewController()
+	private let spacing: CGFloat = 0
+
 	@FocusState var focusedField: String?
 
-	@State var values: [SubGrid] = Array(repeating: Array(repeating: nil, count: 9), count: 9)
+	@Binding var subGrids: [SubGrid]
 	@State var isSolving: Bool = false
-
-	var controller = SudokuInputViewController()
-
-	let spacing: CGFloat = 0
 
 	var body: some View {
 		ZStack {
 			VStack(spacing: spacing) {
-				HStack {
-					Spacer()
-					Button("Random Sudoku 🎲", action: {
-						hideKeyboard()
-						self.values = controller.temp()
-					}).buttonStyle(.bordered)
-						.font(Font.title)
-					Spacer()
-					Button("Clear Sudoku 💣", role: .destructive) {
-						hideKeyboard()
-						self.values = Array(repeating: Array(repeating: nil, count: 9), count: 9)
-					}.buttonStyle(.borderedProminent)
-						.font(Font.title)
-					Spacer()
-				}.padding(16)
 				ZStack {
-					if self.isSolving {
-						ProgressView("Solving Sudoku")
-							.progressViewStyle(CircularProgressViewStyle())
-					}
 					VStack(spacing: spacing) {
 						HStack(spacing: spacing) {
-							SudokuSubGrid(id: 0, values: $values[0], focusedField: _focusedField)
-							SudokuSubGrid(id: 1, values: $values[1], focusedField: _focusedField)
-							SudokuSubGrid(id: 2, values: $values[2], focusedField: _focusedField)
+							SudokuSubGrid(id: 0, subGrid: $subGrids[0], focusedField: _focusedField)
+							SudokuSubGrid(id: 1, subGrid: $subGrids[1], focusedField: _focusedField)
+							SudokuSubGrid(id: 2, subGrid: $subGrids[2], focusedField: _focusedField)
 						}
 						HStack(spacing: spacing) {
-							SudokuSubGrid(id: 3, values: $values[3], focusedField: _focusedField)
-							SudokuSubGrid(id: 4, values: $values[4], focusedField: _focusedField)
-							SudokuSubGrid(id: 5, values: $values[5], focusedField: _focusedField)
+							SudokuSubGrid(id: 3, subGrid: $subGrids[3], focusedField: _focusedField)
+							SudokuSubGrid(id: 4, subGrid: $subGrids[4], focusedField: _focusedField)
+							SudokuSubGrid(id: 5, subGrid: $subGrids[5], focusedField: _focusedField)
 						}
 						HStack(spacing: spacing) {
-							SudokuSubGrid(id: 6, values: $values[6], focusedField: _focusedField)
-							SudokuSubGrid(id: 7, values: $values[7], focusedField: _focusedField)
-							SudokuSubGrid(id: 8, values: $values[8], focusedField: _focusedField)
+							SudokuSubGrid(id: 6, subGrid: $subGrids[6], focusedField: _focusedField)
+							SudokuSubGrid(id: 7, subGrid: $subGrids[7], focusedField: _focusedField)
+							SudokuSubGrid(id: 8, subGrid: $subGrids[8], focusedField: _focusedField)
 						}
 					}
 				}.mask(RoundedRectangle(cornerRadius: 12.5))
@@ -125,26 +106,60 @@ struct SudokuView: View {
 						.strokeBorder(Color.primary, lineWidth: 4)
 						.background(RoundedRectangle(cornerRadius: 12.5)
 							.fill(Color(uiColor: UIColor.tertiarySystemBackground))))
-				HStack {
-					Button("Solve 🤓", action: {
-						hideKeyboard()
-						self.isSolving = true
-						let sudoku = controller.parseSudoku(self.values)
-						let solved = controller.solve(sudoku)
-						self.values = controller.show(solved)
-						self.isSolving = false
-					}).buttonStyle(.borderedProminent)
-						.font(Font.largeTitle)
-						.padding(16)
-				}
 			}
 		}
 	}
 }
 
 struct SudokuInputView: View {
+	@StateObject private var controller = SudokuInputViewController()
+
+	@State var isSolving: Bool = false
+	@State var nrOfSubGrids: Int
+	@State var subGrids: [SubGrid]
+
+	public init(nrOfSubGrids: Int = 9) {
+		self.nrOfSubGrids = 9
+		self.subGrids = Array(repeating: Array(repeating: nil, count: nrOfSubGrids), count: nrOfSubGrids)
+	}
+
 	var body: some View {
-		SudokuView()
+		ZStack {
+			VStack {
+				HStack {
+					Spacer()
+					Button("Random Sudoku 🎲", action: {
+						hideKeyboard()
+						subGrids = controller.random()
+					}).buttonStyle(.bordered)
+						.font(Font.title)
+					Spacer()
+					Button("Clear Sudoku 💣", role: .destructive) {
+						hideKeyboard()
+						subGrids = controller.clear(nrOfSubGrids: nrOfSubGrids)
+					}.buttonStyle(.borderedProminent)
+						.font(Font.title)
+					Spacer()
+				}.padding(.bottom, 16)
+				SudokuView(subGrids: $subGrids)
+				HStack {
+					Button("Solve 🤓", action: {
+						hideKeyboard()
+
+						isSolving = true
+
+						let sudoku = controller.parseSudoku(subGrids)
+						let solved = controller.solve(sudoku)
+
+						subGrids = controller.show(solved)
+
+						isSolving = false
+					}).buttonStyle(.borderedProminent)
+						.font(Font.largeTitle)
+						.padding(16)
+				}
+			}
+		}
 	}
 }
 
