@@ -4,7 +4,7 @@ struct SudokuCellView: View {
 	let grid: Int
 	let cell: Int
 
-	@State var id: String?
+	@State var id: String
 
 	@Binding var value: Int?
 
@@ -18,7 +18,7 @@ struct SudokuCellView: View {
 		self._value = value
 		self._focusedField = focusedField
 
-		self._id = State<String?>(initialValue: "\(grid)-\(cell)")
+		self._id = State<String>(initialValue: "\(grid)-\(cell)")
 	}
 
 	var body: some View {
@@ -47,27 +47,28 @@ struct SudokuSubGrid: View {
 	@Binding var subGrid: SubGrid
 	@FocusState var focusedField: String?
 
-	private let spacing: CGFloat = 0
+	static let spacing: CGFloat = 0
+
+	@State private var columns: [GridItem]
+
+	init(_ subGrid: Binding<SubGrid>, id: Int, focusedField: FocusState<String?>) {
+		self.id = id
+		self._subGrid = subGrid
+		self._focusedField = focusedField
+
+		let sqrt = Int(Double(subGrid.count).squareRoot())
+		self._columns = State<[GridItem]>(initialValue: Array(repeating: GridItem(.flexible(), spacing: SudokuSubGrid.spacing, alignment: .center), count: sqrt))
+	}
 
 	var body: some View {
-		VStack(spacing: spacing) {
-			HStack(spacing: spacing) {
-				SudokuCellView(grid: id, cell: 0, value: $subGrid[0], focusedField: _focusedField)
-				SudokuCellView(grid: id, cell: 1, value: $subGrid[1], focusedField: _focusedField)
-				SudokuCellView(grid: id, cell: 2, value: $subGrid[2], focusedField: _focusedField)
-			}
-			HStack(spacing: spacing) {
-				SudokuCellView(grid: id, cell: 3, value: $subGrid[3], focusedField: _focusedField)
-				SudokuCellView(grid: id, cell: 4, value: $subGrid[4], focusedField: _focusedField)
-				SudokuCellView(grid: id, cell: 5, value: $subGrid[5], focusedField: _focusedField)
-			}
-			HStack(spacing: spacing) {
-				SudokuCellView(grid: id, cell: 6, value: $subGrid[6], focusedField: _focusedField)
-				SudokuCellView(grid: id, cell: 7, value: $subGrid[7], focusedField: _focusedField)
-				SudokuCellView(grid: id, cell: 8, value: $subGrid[8], focusedField: _focusedField)
+		LazyVGrid(columns: columns, spacing: SudokuSubGrid.spacing) {
+			ForEach(0 ..< subGrid.count, id: \.self) { i in
+				SudokuCellView(grid: id, cell: i, value: $subGrid[i], focusedField: _focusedField)
+					.padding(0)
 			}
 		}.background(Rectangle()
 			.strokeBorder(Color.primary, lineWidth: 2))
+
 	}
 }
 
@@ -80,34 +81,27 @@ struct SudokuView: View {
 	@Binding var subGrids: [SubGrid]
 	@State var isSolving: Bool = false
 
+	@State var columns: [GridItem]
+
+	init(_ subGrids: Binding<[SubGrid]>) {
+		self._subGrids = subGrids
+
+		let sqrt = Int(Double(subGrids.count).squareRoot())
+		self._columns = State<[GridItem]>(initialValue: Array(repeating: GridItem(.flexible(), spacing: SudokuSubGrid.spacing, alignment: .center), count: sqrt))
+	}
+
 	var body: some View {
 		ZStack {
-			VStack(spacing: spacing) {
-				ZStack {
-					VStack(spacing: spacing) {
-						HStack(spacing: spacing) {
-							SudokuSubGrid(id: 0, subGrid: $subGrids[0], focusedField: _focusedField)
-							SudokuSubGrid(id: 1, subGrid: $subGrids[1], focusedField: _focusedField)
-							SudokuSubGrid(id: 2, subGrid: $subGrids[2], focusedField: _focusedField)
-						}
-						HStack(spacing: spacing) {
-							SudokuSubGrid(id: 3, subGrid: $subGrids[3], focusedField: _focusedField)
-							SudokuSubGrid(id: 4, subGrid: $subGrids[4], focusedField: _focusedField)
-							SudokuSubGrid(id: 5, subGrid: $subGrids[5], focusedField: _focusedField)
-						}
-						HStack(spacing: spacing) {
-							SudokuSubGrid(id: 6, subGrid: $subGrids[6], focusedField: _focusedField)
-							SudokuSubGrid(id: 7, subGrid: $subGrids[7], focusedField: _focusedField)
-							SudokuSubGrid(id: 8, subGrid: $subGrids[8], focusedField: _focusedField)
-						}
-					}
-				}.mask(RoundedRectangle(cornerRadius: 12.5))
-					.background(RoundedRectangle(cornerRadius: 12.5)
-						.strokeBorder(Color.primary, lineWidth: 4)
-						.background(RoundedRectangle(cornerRadius: 12.5)
-							.fill(Color(uiColor: UIColor.tertiarySystemBackground))))
+			LazyVGrid(columns: columns, spacing: SudokuSubGrid.spacing) {
+				ForEach(0 ..< subGrids.count, id: \.self) { i in
+					SudokuSubGrid($subGrids[i], id: i, focusedField: _focusedField)
+				}
 			}
-		}
+		}.mask(RoundedRectangle(cornerRadius: 12.5))
+			.background(RoundedRectangle(cornerRadius: 12.5)
+				.strokeBorder(Color.primary, lineWidth: 4)
+				.background(RoundedRectangle(cornerRadius: 12.5)
+					.fill(Color(uiColor: UIColor.tertiarySystemBackground))))
 	}
 }
 
@@ -115,12 +109,17 @@ struct SudokuInputView: View {
 	@StateObject private var controller = SudokuInputViewController()
 
 	@State var isSolving: Bool = false
-	@State var nrOfSubGrids: Int
 	@State var subGrids: [SubGrid]
 
 	public init(nrOfSubGrids: Int = 9) {
-		self.nrOfSubGrids = 9
 		self.subGrids = Array(repeating: Array(repeating: nil, count: nrOfSubGrids), count: nrOfSubGrids)
+	}
+
+	private func resizeSudoku(_ factor: Int) {
+		let sqrt = Int(Double(subGrids.count).squareRoot()) + factor
+		let newSize = sqrt * sqrt
+
+		subGrids = controller.clear(nrOfSubGrids: newSize)
 	}
 
 	var body: some View {
@@ -136,12 +135,16 @@ struct SudokuInputView: View {
 					Spacer()
 					Button("Clear Sudoku 💣", role: .destructive) {
 						hideKeyboard()
-						subGrids = controller.clear(nrOfSubGrids: nrOfSubGrids)
+						subGrids = controller.clear(nrOfSubGrids: subGrids.count)
 					}.buttonStyle(.borderedProminent)
 						.font(Font.title)
 					Spacer()
 				}.padding(.bottom, 16)
-				SudokuView(subGrids: $subGrids)
+				HStack {
+					Spacer()
+					SudokuView($subGrids)
+					Spacer()
+				}
 				HStack {
 					Button("Solve 🤓", action: {
 						hideKeyboard()
@@ -166,6 +169,7 @@ struct SudokuInputView: View {
 struct SudokuInputView_Previews: PreviewProvider {
 	static var previews: some View {
 		SudokuInputView()
+			.previewDevice("iPad Air (5th generation)")
 			.previewInterfaceOrientation(.portrait)
 	}
 }
