@@ -32,7 +32,8 @@ public class SudokuInputViewController: ObservableObject {
 	}
 
 	public func solve(_ sudoku: Sudoku) -> Sudoku {
-		return SudokuSolver.solve(sudoku)[0]
+		let solver = SudokuSolver()
+		return solver.solve(sudoku)[0]
 	}
 
 	public func printValues(_ values: [SubGrid]) {

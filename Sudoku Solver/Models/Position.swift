@@ -1,5 +1,3 @@
-
-
 public struct Position: CustomStringConvertible {
 	public let row: Int
 	public let column: Int

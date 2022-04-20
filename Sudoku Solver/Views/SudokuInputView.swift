@@ -1,16 +1,14 @@
 import SwiftUI
 
 struct SudokuCellView: View {
-	let grid: Int
-	let cell: Int
+	private let grid: Int
+	private let cell: Int
 
-	@State var id: String
+	private var id: String
 
 	@Binding var value: Int?
 
 	@FocusState var focusedField: String?
-
-	let cellSize: CGFloat = 64
 
 	public init(grid: Int, cell: Int, value: Binding<Int?>, focusedField: FocusState<String?>) {
 		self.grid = grid
@@ -18,38 +16,39 @@ struct SudokuCellView: View {
 		self._value = value
 		self._focusedField = focusedField
 
-		self._id = State<String>(initialValue: "\(grid)-\(cell)")
+		self.id = "\(grid)-\(cell)"
+	}
+
+	private func changeFocus() {
+		if cell < 8 {
+			focusedField = "\(grid)-\(cell + 1)"
+		} else if grid < 8 {
+			focusedField = "\(grid + 1)-0"
+		}
 	}
 
 	var body: some View {
 		TextField("", value: $value, format: .number)
-			.keyboardType(UIKeyboardType.numberPad)
+			.keyboardType(UIKeyboardType.default)
 			.font(Font.system(size: 32, design: .default))
 			.foregroundColor(Color.primary)
 			.multilineTextAlignment(.center)
-			.frame(width: cellSize, height: cellSize, alignment: .center)
 			.border(Color.primary.opacity(0.2))
 			.focused($focusedField, equals: self.id)
 			.submitLabel(.next)
-			.onSubmit {
-				if cell < 8 {
-					self.focusedField = "\(self.grid)-\(self.cell + 1)"
-				} else if grid < 8 {
-					self.focusedField = "\(self.grid + 1)-0"
-				}
-			}
+			.onSubmit(changeFocus)
 	}
 }
 
 struct SudokuSubGrid: View {
 	let id: Int
 
-	@Binding var subGrid: SubGrid
 	@FocusState var focusedField: String?
+	@State private var columns: [GridItem]
+
+	@Binding var subGrid: SubGrid
 
 	static let spacing: CGFloat = 0
-
-	@State private var columns: [GridItem]
 
 	init(_ subGrid: Binding<SubGrid>, id: Int, focusedField: FocusState<String?>) {
 		self.id = id
@@ -68,7 +67,6 @@ struct SudokuSubGrid: View {
 			}
 		}.background(Rectangle()
 			.strokeBorder(Color.primary, lineWidth: 2))
-
 	}
 }
 
@@ -115,54 +113,56 @@ struct SudokuInputView: View {
 		self.subGrids = Array(repeating: Array(repeating: nil, count: nrOfSubGrids), count: nrOfSubGrids)
 	}
 
-	private func resizeSudoku(_ factor: Int) {
-		let sqrt = Int(Double(subGrids.count).squareRoot()) + factor
-		let newSize = sqrt * sqrt
+	private func solve() {
+		hideKeyboard()
 
-		subGrids = controller.clear(nrOfSubGrids: newSize)
+		isSolving = true
+
+		let sudoku = controller.parseSudoku(subGrids)
+		let solved = controller.solve(sudoku)
+
+		subGrids = controller.show(solved)
+
+		isSolving = false
+	}
+
+	private func random() {
+		hideKeyboard()
+		subGrids = controller.random()
+	}
+
+	private func clear() {
+		hideKeyboard()
+		subGrids = controller.clear(nrOfSubGrids: subGrids.count)
 	}
 
 	var body: some View {
-		ZStack {
-			VStack {
-				HStack {
-					Spacer()
-					Button("Random Sudoku 🎲", action: {
-						hideKeyboard()
-						subGrids = controller.random()
-					}).buttonStyle(.bordered)
-						.font(Font.title)
-					Spacer()
-					Button("Clear Sudoku 💣", role: .destructive) {
-						hideKeyboard()
-						subGrids = controller.clear(nrOfSubGrids: subGrids.count)
-					}.buttonStyle(.borderedProminent)
-						.font(Font.title)
-					Spacer()
-				}.padding(.bottom, 16)
-				HStack {
-					Spacer()
-					SudokuView($subGrids)
-					Spacer()
+		NavigationView {
+			ScrollView {
+				ZStack {
+					VStack {
+						HStack {
+							Spacer()
+							SudokuView($subGrids)
+							Spacer()
+						}
+						HStack {
+							Button("Solve 🤓", action: solve)
+								.buttonStyle(.borderedProminent)
+								.padding(16)
+						}
+					}
 				}
-				HStack {
-					Button("Solve 🤓", action: {
-						hideKeyboard()
-
-						isSolving = true
-
-						let sudoku = controller.parseSudoku(subGrids)
-						let solved = controller.solve(sudoku)
-
-						subGrids = controller.show(solved)
-
-						isSolving = false
-					}).buttonStyle(.borderedProminent)
-						.font(Font.largeTitle)
-						.padding(16)
+			}.navigationTitle("Sudoku Solver")
+				.toolbar {
+					ToolbarItem(placement: .navigationBarLeading) {
+						Button("Random 🎲", action: random)
+					}
+					ToolbarItem(placement: .navigationBarTrailing) {
+						Button("Clear 💣", role: .destructive, action: clear)
+					}
 				}
-			}
-		}
+		}.navigationViewStyle(StackNavigationViewStyle())
 	}
 }
 
