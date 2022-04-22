@@ -4,11 +4,11 @@ import SwiftUI
 public class SudokuInputViewController: ObservableObject {
 	public func random() -> [SubGrid] {
 		let str = sudokus.randomElement()!
-		return Sudoku.parse(str).getSubGrids()
+		return Sudoku.parse(str).getGrids(Sudoku.blocks)
 	}
 
 	public func show(_ sudoku: Sudoku) -> [SubGrid] {
-		return sudoku.getSubGrids()
+		return sudoku.getGrids(Sudoku.blocks)
 	}
 
 	public func clear(nrOfSubGrids: Int) -> [SubGrid] {
@@ -31,9 +31,9 @@ public class SudokuInputViewController: ObservableObject {
 		return sudoku
 	}
 
-	public func solve(_ sudoku: Sudoku) -> Sudoku {
+	public func solve(_ sudoku: Sudoku) throws -> Sudoku {
 		let solver = SudokuSolver()
-		return solver.solve(sudoku)[0]
+		return try solver.solve(sudoku)
 	}
 
 	public func printValues(_ values: [SubGrid]) {

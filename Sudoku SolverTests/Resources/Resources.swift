@@ -1,5 +1,3 @@
-@testable import Sudoku_Solver
-
 struct Resource<T> {
 	let input: String
 	let output: T

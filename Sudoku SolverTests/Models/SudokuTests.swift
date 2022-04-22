@@ -1,4 +1,3 @@
-@testable import Sudoku_Solver
 import XCTest
 
 class SudokuTests: XCTestCase {
@@ -101,15 +100,15 @@ class SudokuTests: XCTestCase {
 		XCTAssertEqual(sudoku.getCol(0), [3, 1, 5, 9, 4, 2, 6, 7, 8])
 	}
 
-	func testGetSubGrid() {
+	func testGetGrid() {
 		let sudoku = Sudoku.parse(self.string)
-		XCTAssertEqual(sudoku.getSubGrid(row: 0, col: 0), [3, 9, 6, 1, 7, 8, 5, 2, 4])
+		XCTAssertEqual(sudoku.getGrid(blocks: Sudoku.blocks, row: 0, col: 0), [3, 9, 6, 1, 7, 8, 5, 2, 4])
 	}
 
-	func testGetSubGrids() {
+	func testGetGrids() {
 		let sudoku = Sudoku.parse(self.string)
-		print(sudoku.getSubGrids())
-		XCTAssertEqual(sudoku.getSubGrids(), [
+		print(sudoku.getGrids(Sudoku.blocks))
+		XCTAssertEqual(sudoku.getGrids(Sudoku.blocks), [
 			[
 				3, 9, 6,
 				1, 7, 8,
@@ -158,12 +157,33 @@ class SudokuTests: XCTestCase {
 		])
 	}
 
-	func testgetSubGridsStartPosition() {
+	func testGetGridsStartPosition() {
+		let expected = [Position(0, 0), Position(0, 3), Position(0, 6),
+						Position(3, 0), Position(3, 3), Position(3, 6),
+						Position(6, 0), Position(6, 3), Position(6, 6)]
+
 		let sudoku = Sudoku.parse(self.string)
-		print(sudoku.getSubGridsStartPosition())
+
+		XCTAssertEqual(sudoku.getGridsStartPositions(Sudoku.blocks), expected)
 	}
 
-	func testgetOpenPositions() {}
+	func testGetOpenPositions() {
+		let expected = [Position(6, 6), Position(8, 0)]
+
+		let sudoku: Sudoku = [
+			[3, 9, 6, 8, 5, 1, 7, 4, 2],
+			[1, 7, 8, 2, 9, 4, 3, 5, 6],
+			[5, 2, 4, 6, 7, 3, 8, 9, 1],
+			[9, 1, 5, 4, 8, 7, 2, 6, 3],
+			[4, 8, 3, 9, 2, 6, 5, 1, 7],
+			[2, 6, 7, 3, 1, 5, 9, 8, 4],
+			[6, 5, 2, 1, 3, 8, nil, 7, 9],
+			[7, 4, 9, 5, 6, 2, 1, 3, 8],
+			[nil, 3, 1, 7, 4, 9, 6, 2, 5]
+		]
+
+		XCTAssertEqual(sudoku.getOpenPositions(), expected)
+	}
 
 	func testHeight() {
 		let sudoku: Sudoku = [
@@ -199,5 +219,12 @@ class SudokuTests: XCTestCase {
 		let expected = 9
 
 		XCTAssertEqual(sudoku.width, expected, "The expected width of \(expected) is not returned")
+	}
+
+	func testDescription() {
+		let expected = string
+		let sudoku = Sudoku.parse(string)
+
+		XCTAssertEqual(sudoku.description, expected)
 	}
 }

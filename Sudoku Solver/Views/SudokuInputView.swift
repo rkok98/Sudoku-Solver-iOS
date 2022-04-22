@@ -119,10 +119,12 @@ struct SudokuInputView: View {
 		isSolving = true
 
 		let sudoku = controller.parseSudoku(subGrids)
-		let solved = controller.solve(sudoku)
-
-		subGrids = controller.show(solved)
-
+		do {
+			let solved = try controller.solve(sudoku)
+			subGrids = controller.show(solved)
+		} catch {
+			// TODO
+		}
 		isSolving = false
 	}
 

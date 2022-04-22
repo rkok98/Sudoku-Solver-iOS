@@ -1,4 +1,4 @@
-public struct Position: CustomStringConvertible {
+public struct Position: CustomStringConvertible, Equatable {
 	public let row: Int
 	public let column: Int
 
