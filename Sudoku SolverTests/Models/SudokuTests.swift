@@ -102,13 +102,17 @@ class SudokuTests: XCTestCase {
 
 	func testGetGrid() {
 		let sudoku = Sudoku.parse(self.string)
-		XCTAssertEqual(sudoku.getGrid(blocks: Sudoku.blocks, row: 0, col: 0), [3, 9, 6, 1, 7, 8, 5, 2, 4])
+		let blocks = [[Int](0...2), [Int](3...5), [Int](6...8)]
+
+		XCTAssertEqual(sudoku.getGrid(blocks: blocks, row: 0, col: 0), [3, 9, 6, 1, 7, 8, 5, 2, 4])
 	}
 
 	func testGetGrids() {
 		let sudoku = Sudoku.parse(self.string)
-		print(sudoku.getGrids(Sudoku.blocks))
-		XCTAssertEqual(sudoku.getGrids(Sudoku.blocks), [
+		let blocks = [[Int](0...2), [Int](3...5), [Int](6...8)]
+
+
+		XCTAssertEqual(sudoku.getGrids(blocks), [
 			[
 				3, 9, 6,
 				1, 7, 8,
@@ -155,16 +159,6 @@ class SudokuTests: XCTestCase {
 				6, 2, 5
 			]
 		])
-	}
-
-	func testGetGridsStartPosition() {
-		let expected = [Position(0, 0), Position(0, 3), Position(0, 6),
-						Position(3, 0), Position(3, 3), Position(3, 6),
-						Position(6, 0), Position(6, 3), Position(6, 6)]
-
-		let sudoku = Sudoku.parse(self.string)
-
-		XCTAssertEqual(sudoku.getGridsStartPositions(Sudoku.blocks), expected)
 	}
 
 	func testGetOpenPositions() {

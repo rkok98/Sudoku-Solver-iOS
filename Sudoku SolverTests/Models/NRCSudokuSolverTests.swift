@@ -29,7 +29,6 @@ class NRCSudokuSolverTests: XCTestCase {
 		"""
 
 		let sudoku = Sudoku.parse(sudokuStr)
-		// print(sudoku.getGrids(NRCSudoku.nrcBlocks))
 
 		XCTAssertEqual(try solver.solve(sudoku).description, expected)
 	}

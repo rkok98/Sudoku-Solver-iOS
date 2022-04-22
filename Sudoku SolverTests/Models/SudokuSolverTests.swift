@@ -3,6 +3,16 @@ import XCTest
 class SudokuSolverTests: XCTestCase {
 	let solver = SudokuSolver()
 
+	func testGetGridsStartPosition() {
+		let expected = [Position(0, 0), Position(0, 3), Position(0, 6),
+		                Position(3, 0), Position(3, 3), Position(3, 6),
+		                Position(6, 0), Position(6, 3), Position(6, 6)]
+
+		let blocks = [[Int](0...2), [Int](3...5), [Int](6...8)]
+
+		XCTAssertEqual(solver.getGridsStartPositions(blocks), expected)
+	}
+
 	func testSolve() {
 		let expected = """
 		1 7 2 5 4 9 6 8 3

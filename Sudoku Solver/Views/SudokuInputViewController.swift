@@ -2,13 +2,15 @@ import Foundation
 import SwiftUI
 
 public class SudokuInputViewController: ObservableObject {
+	private let blocks = [[Int](0...2), [Int](3...5), [Int](6...8)]
+
 	public func random() -> [SubGrid] {
 		let str = sudokus.randomElement()!
-		return Sudoku.parse(str).getGrids(Sudoku.blocks)
+		return Sudoku.parse(str).getGrids(blocks)
 	}
 
 	public func show(_ sudoku: Sudoku) -> [SubGrid] {
-		return sudoku.getGrids(Sudoku.blocks)
+		return sudoku.getGrids(blocks)
 	}
 
 	public func clear(nrOfSubGrids: Int) -> [SubGrid] {

@@ -1,10 +1,14 @@
 import Foundation
+import Algorithms
 
 public enum SolverError: Error {
 	case unsolvableSudoku
 }
 
 public class SudokuSolver {
+	static let blocks = [[Int](0...2), [Int](3...5), [Int](6...8)]
+	static let values = [Int](1...9)
+
 	public func solve(_ sudoku: Sudoku) throws -> Sudoku {
 		var stack: [Sudoku] = []
 
@@ -56,8 +60,8 @@ public class SudokuSolver {
 			}
 		}
 
-		for pos in sudoku.getGridsStartPositions(Sudoku.blocks) {
-			if !validSubGrid(sudoku: sudoku, subgrids: Sudoku.blocks, row: pos.row, col: pos.column) {
+		for pos in getGridsStartPositions(SudokuSolver.blocks) {
+			if !validSubGrid(sudoku: sudoku, subgrids: SudokuSolver.blocks, row: pos.row, col: pos.column) {
 				return false
 			}
 		}
@@ -92,19 +96,25 @@ public class SudokuSolver {
 	func freeAtPosition(sudoku: Sudoku, row: Int, col: Int) -> [Int] {
 		let freeInRow = Set(freeInRow(sudoku: sudoku, row: row))
 		let freeInCol = Set(freeInCol(sudoku: sudoku, col: col))
-		let freeInSubGrid = Set(freeInSubGrid(sudoku: sudoku, subgrids: Sudoku.blocks, row: row, col: col))
+		let freeInSubGrid = Set(freeInSubGrid(sudoku: sudoku, subgrids: SudokuSolver.blocks, row: row, col: col))
 
 		return Array(freeInRow.intersection(freeInCol)
 			.intersection(freeInSubGrid))
 	}
 
+	func getGridsStartPositions(_ blocks: [[Int]]) -> [Position] {
+		return product(blocks, blocks).map { rows, cols in
+			Position(rows[0], cols[0])
+		}
+	}
+
 	func freeIn(_ sequence: [Int?]) -> [Int] {
 		if sequence.isEmpty {
-			return []
+			return SudokuSolver.values
 		}
 
+		let nSet = Set(SudokuSolver.values)
 		let sequenceSet = Set(sequence.compacted())
-		let nSet = Set(Sudoku.values)
 
 		return Array(nSet.subtracting(sequenceSet)).sorted()
 	}

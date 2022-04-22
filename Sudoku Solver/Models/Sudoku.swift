@@ -9,14 +9,6 @@ public typealias Row = [Int?]
 public typealias Col = [Int?]
 
 public extension Sudoku {
-	static var blocks: [[Int]] {
-		[[Int](0...2), [Int](3...5), [Int](6...8)]
-	}
-
-	static var values: [Int] {
-		[Int](1...9)
-	}
-
 	/**
 	 Parses a string to a Sudoku
 
@@ -80,7 +72,7 @@ public extension Sudoku {
 			product(rows, cols).map { row, col in
 				self[row][col]
 			}
-		}.first ?? []
+		}.first ?? [] // Return empty array if position is not in a sub grid
 	}
 
 	func getGrids(_ blocks: [[Int]]) -> [SubGrid] {
@@ -88,12 +80,6 @@ public extension Sudoku {
 			product(rows, cols).map { row, col in
 				self[row][col]
 			}
-		}
-	}
-
-	func getGridsStartPositions(_ blocks: [[Int]]) -> [Position] {
-		return product(blocks, blocks).map { rows, cols in
-			Position(rows[0], cols[0])
 		}
 	}
 
