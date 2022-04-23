@@ -25,6 +25,14 @@ public extension Sudoku {
 		return sudoku
 	}
 
+	static func emptySudoku(_ size: Int = 9) -> Sudoku {
+		return Array(repeating: [Int?](repeating: nil, count: size), count: size)
+	}
+
+	func flatten() -> [Int?] {
+		return self.reduce([], +)
+	}
+
 	/**
 	 Returns a new copy of the sudoku with the extended value.
 	 */

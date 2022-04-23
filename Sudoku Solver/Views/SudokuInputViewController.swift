@@ -3,34 +3,32 @@ import SwiftUI
 
 public class SudokuInputViewController: ObservableObject {
 	private let blocks = [[Int](0...2), [Int](3...5), [Int](6...8)]
+	private let width = 9
 
-	public func random() -> [SubGrid] {
+	public func random() -> [Int?] {
 		let str = sudokus.randomElement()!
-		return Sudoku.parse(str).getGrids(blocks)
+		return Sudoku.parse(str).reduce([], +)
 	}
 
-	public func show(_ sudoku: Sudoku) -> [SubGrid] {
-		return sudoku.getGrids(blocks)
+	public func clear() -> [Int?] {
+		return Sudoku.emptySudoku(width).flatten()
 	}
 
-	public func clear(nrOfSubGrids: Int) -> [SubGrid] {
-		return Array(repeating: Array(repeating: nil, count: nrOfSubGrids), count: nrOfSubGrids)
-	}
+	public func toSudoku(_ values: [Int?]) -> Sudoku {
+		var sudoku = Sudoku.emptySudoku()
 
-	public func parseSudoku(_ values: [SubGrid]) -> Sudoku {
-		let sqrt = Int(Double(values.count).squareRoot())
-		var sudoku: Sudoku = Array(repeating: Array(repeating: 0, count: values.count), count: values.count)
+		for (index, value) in values.enumerated() {
+			let row = index / width
+			let col = index % width
 
-		for (i, subGrid) in values.enumerated() {
-			for (j, val) in subGrid.enumerated() {
-				let row = (i / sqrt) % values.count * sqrt + (j / sqrt)
-				let col = ((i * sqrt) + (j % sqrt)) % values.count
-
-				sudoku[row][col] = val ?? nil
-			}
+			sudoku[row][col] = value
 		}
 
 		return sudoku
+	}
+
+	public func fromSudoku(_ sudoku: Sudoku) -> [Int?] {
+		return sudoku.flatten()
 	}
 
 	public func solve(_ sudoku: Sudoku) throws -> Sudoku {
