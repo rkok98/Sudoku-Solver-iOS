@@ -9,16 +9,16 @@ struct SudokuCellView: View {
 	private var id: String
 
 	@Binding var value: Int?
-	@Binding var nrcSudoku: Bool
+	@Binding var isNRCSudoku: Bool
 
 	@FocusState var focusedField: String?
 
-	public init(row: Int, col: Int, value: Binding<Int?>, nrcSudoku: Binding<Bool>, focusedField: FocusState<String?>) {
+	public init(row: Int, col: Int, value: Binding<Int?>, isNRCSudoku: Binding<Bool>, focusedField: FocusState<String?>) {
 		self.row = row
 		self.col = col
 
 		self._value = value
-		self._nrcSudoku = nrcSudoku
+		self._isNRCSudoku = isNRCSudoku
 		self._focusedField = focusedField
 
 		self.id = "\(row)-\(col)"
@@ -38,7 +38,8 @@ struct SudokuCellView: View {
 
 	var body: some View {
 		TextField("", value: $value, format: .number)
-			.keyboardType(UIKeyboardType.default)
+			.keyboardType(UIKeyboardType.numbersAndPunctuation)
+			.disableAutocorrection(true)
 			.font(Font.system(size: 32, design: .default))
 			.foregroundColor(Color.primary)
 			.multilineTextAlignment(.center)
@@ -46,24 +47,26 @@ struct SudokuCellView: View {
 			.focused($focusedField, equals: self.id)
 			.submitLabel(.next)
 			.onSubmit(changeFocus)
-			.background(isNRCGrid() && nrcSudoku ? Color(uiColor: UIColor.secondarySystemBackground) : Color(uiColor: UIColor.systemBackground))
+			.background(isNRCGrid() && isNRCSudoku ? Color(uiColor: UIColor.secondarySystemBackground) : Color(uiColor: UIColor.systemBackground))
 	}
 }
 
 struct SudokuView: View {
-	@FocusState var focusedField: String?
-
 	@Binding var values: [Int?]
-	@Binding var nrcSudoku: Bool
+	@Binding var isNRCSudoku: Bool
 
 	@State var columns: [GridItem]
 
+	@FocusState var focusedField: String?
+
 	private let controller = SudokuInputViewController()
 	private let spacing: CGFloat = 0
+	private let width: Int
 
-	init(_ values: Binding<[Int?]>, nrcSudoku: Binding<Bool>) {
+	init(_ values: Binding<[Int?]>, width: Int, isNRCSudoku: Binding<Bool>) {
 		self._values = values
-		self._nrcSudoku = nrcSudoku
+		self.width = width
+		self._isNRCSudoku = isNRCSudoku
 
 		self._columns = State<[GridItem]>(initialValue: Array(repeating: GridItem(.flexible(), spacing: spacing, alignment: .center), count: 9))
 	}
@@ -71,10 +74,10 @@ struct SudokuView: View {
 	var body: some View {
 		LazyVGrid(columns: columns, spacing: spacing) {
 			ForEach(0 ..< values.count, id: \.self) { i in
-				let row = i / 9
-				let col = i % 9
+				let row = i / width
+				let col = i % width
 
-				SudokuCellView(row: row, col: col, value: $values[i], nrcSudoku: $nrcSudoku, focusedField: self._focusedField)
+				SudokuCellView(row: row, col: col, value: $values[i], isNRCSudoku: $isNRCSudoku, focusedField: _focusedField)
 			}
 		}.mask(RoundedRectangle(cornerRadius: 12.5))
 			.background(RoundedRectangle(cornerRadius: 12.5)
@@ -86,66 +89,77 @@ struct SudokuView: View {
 struct SudokuInputView: View {
 	@StateObject private var controller = SudokuInputViewController()
 
-	@State var isSolving: Bool = false
-	@State var nrcSudoku: Bool = true
+	@State var isUnsolvable: Bool = false
+	@State var isNRCSudoku: Bool = false
 	@State var values: [Int?]
 
-	public init(nrOfSubGrids: Int = 9) {
-		let nrOfValues = nrOfSubGrids * nrOfSubGrids
+	private let padding: CGFloat = 16.0
+	private let width: Int
+
+	public init(width: Int = 9) {
+		let nrOfValues = width * width
+
+		self.width = width
 		self.values = Array(repeating: nil, count: nrOfValues)
 	}
 
 	private func solve() {
 		hideKeyboard()
 
-		isSolving = true
+		let sudoku = controller.toSudoku(values, width: width)
+		let solver = isNRCSudoku ? NRCSudokuSolver() : SudokuSolver()
 
-		let sudoku = controller.toSudoku(values)
 		do {
-			let solved = try controller.solve(sudoku)
+			let solved = try controller.solve(sudoku, solver: solver)
 			values = controller.fromSudoku(solved)
 		} catch {
-			// TODO:
+			isUnsolvable = true
 		}
-
-		isSolving = false
 	}
 
 	private func random() {
 		hideKeyboard()
-		values = controller.random()
+		values = controller.random(isNRCSudoku: isNRCSudoku)
 	}
 
 	private func clear() {
 		hideKeyboard()
-		values = controller.clear()
-		nrcSudoku.toggle()
+		values = controller.clear(width: width)
 	}
 
 	var body: some View {
 		NavigationView {
 			ScrollView {
-				ZStack {
-					VStack {
-						HStack {
-							Spacer()
-							SudokuView($values, nrcSudoku: $nrcSudoku)
-							Spacer()
+				VStack {
+					Picker("Sudoku type", selection: $isNRCSudoku) {
+						Text("Normal").tag(false)
+						Text("NRC Sudoku").tag(true)
+					}.pickerStyle(.segmented)
+						.padding(padding)
+					ZStack {
+						SudokuView($values, width: width, isNRCSudoku: $isNRCSudoku)
+							.padding(padding)
+					}.alert("Sudoku is unsolvable", isPresented: $isUnsolvable) {
+						Button("OK") {
+							isUnsolvable = false
 						}
-						HStack {
-							Button("Solve 🤓", action: solve)
-								.buttonStyle(.borderedProminent)
-								.padding(16)
-						}
+					}
+					HStack {
+						Spacer()
+						Button("Solve Sudoku", action: solve)
+							.buttonStyle(.borderedProminent)
+							.padding(padding)
+						Button("Clear Sudoku", role: .destructive, action: clear)
+						Spacer()
 					}
 				}
 			}.navigationTitle("Sudoku Solver")
 				.toolbar {
 					ToolbarItem(placement: .navigationBarLeading) {
-						Button("Random 🎲", action: random)
+						Button("Random Sudoku", action: random)
 					}
 					ToolbarItem(placement: .navigationBarTrailing) {
-						Button("Clear 💣", role: .destructive, action: clear)
+						Button("Hide Keyboard", role: .destructive, action: hideKeyboard)
 					}
 				}
 		}.navigationViewStyle(StackNavigationViewStyle())

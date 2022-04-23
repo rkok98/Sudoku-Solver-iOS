@@ -2,19 +2,25 @@ import Foundation
 import SwiftUI
 
 public class SudokuInputViewController: ObservableObject {
-	private let blocks = [[Int](0...2), [Int](3...5), [Int](6...8)]
-	private let width = 9
-
-	public func random() -> [Int?] {
-		let str = sudokus.randomElement()!
-		return Sudoku.parse(str).reduce([], +)
+	/**
+	 Returns a random sudoku
+	 */
+	public func random(isNRCSudoku: Bool) -> [Int?] {
+		let str = isNRCSudoku ? nrcSudokus.randomElement()! : sudokus.randomElement()!
+		return Sudoku.parse(str).flatten()
 	}
 
-	public func clear() -> [Int?] {
+	/**
+	 Returns an empty sudoku
+	 */
+	public func clear(width: Int) -> [Int?] {
 		return Sudoku.emptySudoku(width).flatten()
 	}
 
-	public func toSudoku(_ values: [Int?]) -> Sudoku {
+	/**
+	 Converts an array of optional integers to a sudoku
+	 */
+	public func toSudoku(_ values: [Int?], width: Int) -> Sudoku {
 		var sudoku = Sudoku.emptySudoku()
 
 		for (index, value) in values.enumerated() {
@@ -27,16 +33,17 @@ public class SudokuInputViewController: ObservableObject {
 		return sudoku
 	}
 
+	/**
+	 Returns a sudoku to optional integer array
+	 */
 	public func fromSudoku(_ sudoku: Sudoku) -> [Int?] {
 		return sudoku.flatten()
 	}
 
-	public func solve(_ sudoku: Sudoku) throws -> Sudoku {
-		let solver = SudokuSolver()
+	/**
+	 Solves a sudoku
+	 */
+	public func solve(_ sudoku: Sudoku, solver: SudokuSolver) throws -> Sudoku {
 		return try solver.solve(sudoku)
-	}
-
-	public func printValues(_ values: [SubGrid]) {
-		print(values)
 	}
 }
