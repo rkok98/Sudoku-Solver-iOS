@@ -1,7 +1,7 @@
 import Algorithms
 
 public class NRCSudokuSolver: SudokuSolver {
-	static let nrcBlocks = [[Int](1...3), [Int](5...7)]
+	static let nrcGrids = [[Int](1...3), [Int](5...7)]
 
 	override func consistent(_ sudoku: Sudoku) -> Bool {
 		if !sudoku.getOpenPositions().isEmpty {
@@ -16,15 +16,15 @@ public class NRCSudokuSolver: SudokuSolver {
 		}
 
 		// Validate sub-grids
-		for pos in getGridsStartPositions(NRCSudokuSolver.blocks) {
-			if !validSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.blocks, row: pos.row, col: pos.column) {
+		for pos in getGridsStartPositions(NRCSudokuSolver.subGrids) {
+			if !validSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.subGrids, row: pos.row, col: pos.column) {
 				return false
 			}
 		}
 
 		// Validate NRC-grids
-		for pos in getGridsStartPositions(NRCSudokuSolver.nrcBlocks) {
-			if !validSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.nrcBlocks, row: pos.row, col: pos.column) {
+		for pos in getGridsStartPositions(NRCSudokuSolver.nrcGrids) {
+			if !validSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.nrcGrids, row: pos.row, col: pos.column) {
 				return false
 			}
 		}
@@ -35,8 +35,8 @@ public class NRCSudokuSolver: SudokuSolver {
 	override func freeAtPosition(sudoku: Sudoku, row: Int, col: Int) -> [Int] {
 		let freeInRow = Set(self.freeInRow(sudoku: sudoku, row: row))
 		let freeInCol = Set(self.freeInCol(sudoku: sudoku, col: col))
-		let freeInSubGrid = Set(self.freeInSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.blocks, row: row, col: col))
-		let freeInNRCGrid = Set(self.freeInSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.nrcBlocks, row: row, col: col))
+		let freeInSubGrid = Set(self.freeInSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.subGrids, row: row, col: col))
+		let freeInNRCGrid = Set(self.freeInSubGrid(sudoku: sudoku, subgrids: NRCSudokuSolver.nrcGrids, row: row, col: col))
 
 		return Array(freeInRow
 			.intersection(freeInCol)

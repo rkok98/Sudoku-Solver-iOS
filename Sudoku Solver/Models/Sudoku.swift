@@ -25,10 +25,16 @@ public extension Sudoku {
 		return sudoku
 	}
 
+	/**
+	 Returns an empty sudoku.
+	 */
 	static func emptySudoku(_ size: Int = 9) -> Sudoku {
 		return Array(repeating: [Int?](repeating: nil, count: size), count: size)
 	}
 
+	/**
+	 Converst the sudoku to 1 dimensional-array.
+	 */
 	func flatten() -> [Int?] {
 		return self.reduce([], +)
 	}
@@ -83,6 +89,9 @@ public extension Sudoku {
 		}.first ?? [] // Return empty array if position is not in a sub grid
 	}
 
+	/**
+	 Get all grids of a sudoku.
+	 */
 	func getGrids(_ blocks: [[Int]]) -> [SubGrid] {
 		return product(blocks, blocks).map { rows, cols in
 			product(rows, cols).map { row, col in
