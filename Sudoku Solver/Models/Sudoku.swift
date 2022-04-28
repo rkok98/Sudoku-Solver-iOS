@@ -152,11 +152,6 @@ public extension Sudoku {
 	}
 
 	private static func parseRow(_ row: String, openPosition: Int) -> [Int?] {
-		// TODO: Error Handling
-		// let pattern = "[0-9]+[0-9]*\\s*"
-		// let regex = try! NSRegularExpression(pattern: pattern)
-		// regex.firstMatch(in: <#T##String#>, range: <#T##NSRange#>)
-
 		return row.split(separator: " ").compactMap {
 			Int($0) == openPosition ? nil : Int($0)
 		}
